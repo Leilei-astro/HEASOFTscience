@@ -1,1 +1,8 @@
 install
+需要注意的是：
+1. 安装需要的gcc-11和g++-11对应的版本在安装brew，安装gcc之后可能已经更新成为了最新的gcc-12和g++-12了，需要找到对应位置并在configure文件写：
+
+export CC=/usr/local/bin/gcc-12
+export CXX=/usr/local/bin/g++-12
+export FC=/usr/local/bin/gfortran-12
+export PERL=/usr/local/bin/perl
