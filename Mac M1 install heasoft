@@ -1,8 +1,62 @@
 install
-需要注意的是：
-1. 安装需要的gcc-11和g++-11对应的版本在安装brew，安装gcc之后可能已经更新成为了最新的gcc-12和g++-12了，需要找到对应位置并在configure文件写：
 
-export CC=/usr/local/bin/gcc-12
-export CXX=/usr/local/bin/g++-12
-export FC=/usr/local/bin/gfortran-12
-export PERL=/usr/local/bin/perl
+1. 下载heasoft6.30.1:
+	https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/download.html
+	注意：下载的Step1不要选择Pre-Compiler，选择Source版本的Mac ARM64 - Darwin 21.x (macOS 12.x) [Supported only as Intel through Rosetta]
+	然后下载的Step2选择all,打包下载
+
+2. 先安装Rositta:
+	sudo softwareupdate --install-rosetta
+
+3. 再安装Perl和gcc（会包括g++-12,gcc-12,gfortran-12）:
+	arch -x86_64 /usr/local/bin/brew install gcc
+	arch -x86_64 /usr/local/bin/brew install perl
+
+4. 接下来进行安装软件主体：
+	需要注意的是：安装需要的gcc和g++对应的版本在安装gcc之后可能已经更新成为了最新的gcc-12和g++-12了，需要找到对应位置并在configure文件写：
+
+	export CC=/usr/local/bin/gcc-12
+	export CXX=/usr/local/bin/g++-12
+	export FC=/usr/local/bin/gfortran-12
+	export PERL=/usr/local/bin/perl5.36.0
+
+	export PYTHON=~/Applications/anaconda/anaconda3/bin/python3
+	export PATH="/usr/bin:$PATH"
+
+5. 安装：
+	cd /path/to/heasoft6.30.1/BUILD_DIR/
+	sudo ./configure --prefix=/path/to/heasoft6.30.1/
+	sudo make
+	sudo make install
+
+6. 出现如下链接里类似的问题是xcode的14.1版本问题，需要更改为低阶版本13.4
+	https://stackoverflow.com/questions/73714336/xcode-update-to-version-2395-ld-compile-problem-occurs-computedatomcount-m
+	0  0x1010c81a0  __assert_rtn + 140
+	1  0x100f4fa8c  mach_o::relocatable::Parser<arm64>::parse(mach_o::relocatable::ParserOptions const&) + 4536
+	2  0x100f21d38  mach_o::relocatable::Parser<arm64>::parse(unsigned char const*, unsigned long long, char const*, long, ld::File::Ordinal, mach_o::relocatable::ParserOptions const&) + 148
+	3  0x100f8a4ac  ld::tool::InputFiles::makeFile(Options::FileInfo const&, bool) + 1468
+	4  0x100f8d360  ___ZN2ld4tool10InputFilesC2ER7Options_block_invoke + 56
+	5  0x1893941f4  _dispatch_client_callout2 + 20
+	6  0x1893a7954  _dispatch_apply_invoke + 224
+	7  0x1893941b4  _dispatch_client_callout + 20
+	8  0x1893a5a04  _dispatch_root_queue_drain + 680
+	9  0x1893a6104  _dispatch_worker_thread2 + 164
+	10  0x189554324  _pthread_wqthread + 228
+	A linker snapshot was created at:
+    	/tmp/smr_dense_SL-2022-09-14-165143.ld-snapshot
+	ld: Assertion failed: (_file->_atomsArrayCount == computedAtomCount && "more atoms allocated than expected"), function parse, file macho_relocatable_file.cpp, line 2061.
+	collect2: error: ld returned 1 exit status
+	make: *** [smr_dense_SL] Error 1
+
+	下载链接 https://download.developer.apple.com/Developer_Tools/Command_Line_Tools_for_Xcode_13.4/Command_Line_Tools_for_Xcode_13.4.dmg
+	下载完之后安装会在/Library/Developer/CommandLineTools文件夹，安装结束之后先切换版本为13.4:
+	sudo xcode-select --switch /Library/Developer/CommandLineTools
+	然后检查确认版本是13.4:
+	pkgutil --pkg-info=com.apple.pkg.CLTools_Executables
+
+
+7. 确认是Xcode 13.4，接着进行安装：
+	cd /path/to/heasoft6.30.1/BUILD_DIR/
+	sudo ./configure --prefix=/path/to/heasoft6.30.1/
+	sudo make
+	sudo make install
