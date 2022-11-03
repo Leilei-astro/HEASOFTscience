@@ -7,6 +7,11 @@ install
   那么只能下载script安装：
   https://cxc.harvard.edu/ciao/download/ciao_install.html
   
+  注意：smoke test ObsVis可能会出现FAILed的问题，先等装完，然后再activate ciao，再运行一次test就好了：
+    cd $ASCDS_INSTALL/test
+    make test-obsvis runtests
+  来源参见： https://cxc.harvard.edu/ciao4.9/bugs/smoke.html
+  
 2. 打开ds9的方法：
   先activate ciao
   ds9
