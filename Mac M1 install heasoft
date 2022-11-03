@@ -5,7 +5,8 @@ install
 	注意：下载的Step1不要选择Pre-Compiler，选择Source版本的Mac ARM64 - Darwin 21.x (macOS 12.x) [Supported only as Intel through Rosetta]
 	然后下载的Step2选择all,打包下载
 
-2. 先安装Rositta:
+2. 先安装Anaconda和Rositta:
+	Anaconda现在可以支持Mac arm M1芯片的安装和使用，终于。安装后再装Rositta:
 	sudo softwareupdate --install-rosetta
 
 3. 再安装Perl和gcc（会包括g++-12,gcc-12,gfortran-12）:
@@ -15,18 +16,18 @@ install
 4. 接下来进行安装软件主体：
 	需要注意的是：安装需要的gcc和g++对应的版本在安装gcc之后可能已经更新成为了最新的gcc-12和g++-12了，需要找到对应位置并在configure文件写入几个export的环境变量，让电脑知道你的电脑配置的gcc和python的位置：
 
-	cd /path/to/heasoft6.30.1/BUILD_DIR/
+	cd /path/to/your/heasoft6.30.1/BUILD_DIR/
 	
 	export CC=/usr/local/bin/gcc-12
 	export CXX=/usr/local/bin/g++-12
 	export FC=/usr/local/bin/gfortran-12
 	export PERL=/usr/local/bin/perl5.36.0
 
-	export PYTHON=~/Applications/anaconda/anaconda3/bin/python3
+	export PYTHON=/python/to/your/anaconda3/bin/python3
 	export PATH="/usr/bin:$PATH"
 
 5. 安装：
-	cd /path/to/heasoft6.30.1/BUILD_DIR/
+	cd /path/to/your/heasoft6.30.1/BUILD_DIR/
 	sudo ./configure --prefix=/path/to/heasoft6.30.1/
 	sudo make
 	sudo make install
@@ -58,7 +59,7 @@ install
 
 
 7. 确认是Xcode 13.4，接着进行安装：
-	cd /path/to/heasoft6.30.1/BUILD_DIR/
+	cd /path/to/your/heasoft6.30.1/BUILD_DIR/
 	sudo ./configure --prefix=/path/to/heasoft6.30.1/
 	sudo make
 	sudo make install
