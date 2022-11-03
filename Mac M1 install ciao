@@ -1,8 +1,12 @@
 install
 
-根据CIAO platform提示：
-https://cxc.cfa.harvard.edu/ciao/download/platforms.html
-The ARM64 (M1) builds of Python available on conda-forge are not compatible.
-不支持直接conda create -n ciao -c https://cxc.cfa.harvard.edu/conda/ciao ciao sherpa ds9 ciao-contrib caldb_main marx这种方法在Anaconda里面创建新环境安装。
-那么只能下载script安装：
-https://cxc.harvard.edu/ciao/download/ciao_install.html
+1. 根据CIAO platform提示：
+  https://cxc.cfa.harvard.edu/ciao/download/platforms.html
+  The ARM64 (M1) builds of Python available on conda-forge are not compatible.
+  不支持直接conda create -n ciao -c https://cxc.cfa.harvard.edu/conda/ciao ciao sherpa ds9 ciao-contrib caldb_main marx这种方法在Anaconda里面创建新环境安装。
+  那么只能下载script安装：
+  https://cxc.harvard.edu/ciao/download/ciao_install.html
+  
+2. 打开ds9的方法：
+  先activate ciao
+  ds9
